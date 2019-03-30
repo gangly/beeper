@@ -9,8 +9,9 @@ Beeper就是当年的BP机，能发出哔哔的声音，也有通知、报警器
 针对上面几种情况，Beeper能满足预警功能。
 
 ### 二、Beeper工作原理
-Beeper是用python2.7开发，因为要监控基础平台上的hive数据，需要用azkaban进行任务调度。
+Beeper是用python2.7开发，因为要监控大数据平台上的hive数据，需要用azkaban进行任务调度。
 Beeper是基于即时查询hive实现，这就要工程师预先写好hql并配置好预警规则。
+目前beeper支持mysql, hive, presto查询
 
 ![架构图](img/arch.png)
 
@@ -130,6 +131,9 @@ beeper.job为azkaban脚本
 
 
 #### 3.3 使用方法
+
+
 1）下载beeper.zip解压后删除jobconfs目录下文件（两个示例文件可参考），编写配置文件放在jobconfs目录下，配置azkaban定时调度执行beeper任务。
 若数据有问题会发送报警邮件，没问题则不发送邮件。
+
 2）自动化测试：将要测试的sql放在lib/autotests目录下，运行autotest.job
