@@ -1,0 +1,23 @@
+<strong>{{ data.head|safe }}:</strong>
+<br />
+{% for tb in data.tables %}
+    <br /><strong>{{ tb.desc }}:</strong>
+    <table width="100%%" border="1">
+         <tr>
+        {% for header in tb.headers -%}
+           <th bgcolor="gray">{{ header }}</th>
+        {%- endfor %}
+         </tr>
+        {% for row in tb.rows -%}
+            <tr>
+            {%- for item in row['items'] -%}
+                {%- if row.warn -%}
+                    <td><span style="color: red; ">{{ item }}</span></td>
+                {%- else -%}
+                    <td>{{ item }}</td>
+                {%- endif %}
+            {%- endfor -%}
+            </tr>
+        {% endfor -%}
+    </table>
+{%- endfor %}

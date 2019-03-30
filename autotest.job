@@ -1,0 +1,2 @@
+type=command
+command=python ./beeper/beeper.py autotest
