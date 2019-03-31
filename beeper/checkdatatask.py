@@ -13,9 +13,9 @@ checkdatatask.py
 import subprocess
 import traceback
 
-from lib import mysqldb, prestodb
-from lib.utils import replace_date_mark
-from task import Task
+from beeper.lib import mysqldb, prestodb
+from beeper.lib.utils import replace_date_mark
+from beeper.task import Task
 
 
 class CheckdataTask(Task):
@@ -59,7 +59,7 @@ class CheckdataTask(Task):
         elif source == 'hive':
             data = self.query_hive(sql, headers)
         else:
-            print 'wrong database source'
+            print('wrong database source')
             exit(1)
         return data
 
@@ -88,7 +88,7 @@ class CheckdataTask(Task):
     def query_hive(self, sql, headers):
 
         cmd = '''hive -e "%s" ''' % (sql,)
-        print cmd
+        print(cmd)
         data = []
 
         try:
@@ -99,7 +99,7 @@ class CheckdataTask(Task):
                     break
 
                 words = line.split("\t")
-                print len(words)
+                print(len(words))
                 if len(words) < len(headers):
                     continue
                 item = {}
@@ -107,10 +107,9 @@ class CheckdataTask(Task):
                     item[header] = words[index].strip()
 
                 data.append(item)
-                print line
-
-        except Exception, re:
-            print "message is:%s" % (str(re))
+                print(line)
+        except Exception as re:
+            print("message is:%s" % (str(re)))
             traceback.print_exc()
         return data
 
@@ -129,7 +128,7 @@ class CheckdataTask(Task):
             expression = check
 
             for header in headers:
-                print expression
+                print(expression)
                 if item[header] is None:
                     if_none = True
                 expression = expression.replace(header, 'abs(%s)' % str(item[header]))
@@ -139,7 +138,7 @@ class CheckdataTask(Task):
                 if_none = False
                 continue
 
-            print 'check expression:', expression
+            print('check expression: %s ' % expression)
             rows = {'data': item}
             if eval(expression):
                 if_warn = True

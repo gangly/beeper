@@ -13,7 +13,9 @@ beeper.py
 import os
 from abc import abstractmethod
 
-from lib.emailsender import EmailSender
+from beeper.lib.emailsender import EmailSender
+
+from beeper.constant import EMAIL_SUFFIX
 
 
 class Task(object):
@@ -32,13 +34,13 @@ class Task(object):
     def read_conf(self):
         jobconfsdir = os.path.join(os.getcwd(), 'beeper', 'taskconfs', self._tasktype)
         # jobconfsdir = os.path.join(os.getcwd(), 'confs', self._tasktype)
-        print 'jobconfsdir:', jobconfsdir
+        print('jobconfsdir: %s' % jobconfsdir)
         confs = []
         for filename in os.listdir(jobconfsdir):
             if not filename.endswith('.conf'):
                 continue
             filepath = os.path.join(jobconfsdir, filename)
-            print 'reading file:', filepath
+            print('reading file: %s ' % filepath)
             with open(filepath) as fp:
                 conf = fp.read()
                 confs.append(self.parse_conf(conf))
@@ -52,21 +54,19 @@ class Task(object):
     def make_table(self, conf):
         pass
 
-
-    def add_email_suffix(self, elist, suffix='@163.com'):
-        return [receiver+suffix for receiver in elist]
-
+    def add_email_suffix(self, elist, suffix=EMAIL_SUFFIX):
+        return [receiver+suffix for receiver in elist] if suffix else elist
 
     def send_emails(self, emails):
         emailsender = EmailSender()
         for email in emails:
-            print email
+            print(email)
             emailsender.send(email)
 
     def execute_task(self):
-        import sys
-        reload(sys)
-        sys.setdefaultencoding("utf-8")
+        # import sys
+        # reload(sys)
+        # sys.setdefaultencoding("utf-8")
 
         emails = []
         template = self.get_template()
@@ -82,7 +82,7 @@ class Task(object):
                 }
                 emails.append(email)
         if emails:
-            print '正在发送邮件....'
+            print('正在发送邮件....')
         self.send_emails(emails)
 
 

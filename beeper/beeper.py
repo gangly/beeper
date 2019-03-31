@@ -12,17 +12,14 @@ beeper.py
 """
 import sys
 
-from checkdatatask import CheckdataTask
-from autotesttask import AutotestTask
-
 if __name__ == '__main__':
 
     args = sys.argv[1:]
     # args = ['autotest',]
     if len(args) < 1:
-        print """Usage:python beeper.py tasktype
+        print ("""Usage:python beeper.py tasktype
                     tasktype: checkdata autotest
-            """
+            """)
         exit(1)
 
     (tasktype, ) = args

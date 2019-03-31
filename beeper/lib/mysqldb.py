@@ -18,8 +18,8 @@ import time
 import logging
 import MySQLdb
 
-from conf import mysqlconf
-from metasingleton import MetaSingleton
+from beeper.lib.conf import mysqlconf
+from beeper.lib.metasingleton import MetaSingleton
 
 
 class MySQL(object):
@@ -160,7 +160,7 @@ class MySQL(object):
         """
         keys = []
         for key in data:
-            if isinstance(data[key], str) or isinstance(data[key], unicode):
+            if isinstance(data[key], str):
                 data[key] = "'" + data[key] + "'"
             else:
                 data[key] = str(data[key])
@@ -172,7 +172,7 @@ class MySQL(object):
         update = ','.join(keys)
         # real_sql = "INSERT INTO " + table_name + " (" + key + ") VALUES (" + value + ")"
         real_sql = "INSERT INTO %s ( %s ) VALUES ( %s ) ON DUPLICATE KEY UPDATE %s " % (table_name, key, value, update)
-        print real_sql
+        print(real_sql)
 
         try:
             return self.query(real_sql)

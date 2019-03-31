@@ -15,8 +15,8 @@ prestodb.py
 from sqlalchemy.engine import create_engine
 from sqlalchemy.orm import sessionmaker
 
-from metasingleton import MetaSingleton
-from conf import prestoconf
+from beeper.lib.metasingleton import MetaSingleton
+from beeper.lib.conf import prestoconf
 
 
 class Presto(object):
@@ -27,7 +27,7 @@ class Presto(object):
     def __init__(self, dbname='online'):
         if self._session is None:
             if dbname not in prestoconf.presto_con:
-                raise 'presto dbname is wrong!'
+                raise Exception('presto dbname is wrong!')
             engine = create_engine(prestoconf.presto_con[dbname])
             db_session = sessionmaker(bind=engine)
             self._session = db_session()

@@ -10,7 +10,7 @@ utils.py
 @version: python2.7
 @create time: 2017/9/11 11:30
 """
-import usetime
+from beeper.lib import usetime
 
 
 def check_key(dct, path):
@@ -25,7 +25,7 @@ def check_key(dct, path):
         else:
             val = val[path]
     except KeyError as e:
-        print '配置文件必须包含%s字段' % (path.split('.')[-1])
+        print('配置文件必须包含%s字段' % (path.split('.')[-1]))
         if_error = True
     return if_error
 

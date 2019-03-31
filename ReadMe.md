@@ -1,5 +1,7 @@
 ## 数据部数据质量预警与自动化数据测试工具
 
+github: https://github.com/gangly/beeper
+
 ### 一、Beeper产生原因
 Beeper就是当年的BP机，能发出哔哔的声音，也有通知、报警器的意思，这里用来作为数据质量预警工具的别名。作为数据开发，多数情况下需要每天自动检查数据质量是否有问题，有以下几方面需要关注：
 - 每天是否有数据，在检查时间点是否按时产出了数据
@@ -35,9 +37,9 @@ beeper.job为azkaban脚本
 
 ```
 {
-    'author': 'ligangc',
+    'author': 'xiaoming',
     'title': '流量异常检测报告',
-    'receivers': ['ligangc','tanjiquan'],
+    'receivers': ['xiaoming','zhangsan'],
     'head': '''
         昨日：$yesterday
         差值：昨日uv-环比上周同日uv

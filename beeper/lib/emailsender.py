@@ -16,8 +16,8 @@ Date:    2015/07/07 17:23:06
 import smtplib
 from email.mime.text import MIMEText
 
-from metasingleton import MetaSingleton
-from conf.emailconf import sender, host, user, password
+from beeper.lib.metasingleton import MetaSingleton
+from beeper.lib.conf.emailconf import sender, host, user, password
 
 
 class EmailSender(object):
@@ -43,7 +43,7 @@ class EmailSender(object):
         content = email['content']
 
         if not receivers:
-            print "There are no receivers,please check email.list"
+            print("There are no receivers,please check email.list")
             exit(1)
 
         msg = MIMEText(content, _subtype='html', _charset='utf-8')
@@ -51,7 +51,7 @@ class EmailSender(object):
         msg['From'] = sender
         msg['To'] = ", ".join(receivers)
         try:
-            print 'email send to ', receivers
+            print('email send to %s' % receivers)
             self._smtp.sendmail(sender, receivers, msg.as_string())
         except Exception as e:
-            print "Send email error: %s" % e
+            print("Send email error: %s" % e)

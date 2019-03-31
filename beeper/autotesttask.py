@@ -10,9 +10,9 @@ autotesttask.py
 @version: python2.7
 @create time: 2017/11/9 14:50
 """
-from lib import prestodb
-from lib.mysqldb import MySQL
-from task import Task
+from beeper.lib import prestodb
+from beeper.lib.mysqldb import MySQL
+from beeper.task import Task
 
 
 class AutotestTask(Task):
@@ -71,12 +71,12 @@ class AutotestTask(Task):
         for sql in sqls:
 
             basesql = self.clean_sql(sql['base'])
-            print basesql
+            print(basesql)
             res = db.query_fetchall(basesql)
             base = res[0][0] if len(res) > 0 else 0.0
 
             testsql = self.clean_sql(sql['test'])
-            print testsql
+            print(testsql)
             res = db.query_fetchall(testsql)
             test = res[0][0] if len(res) > 0 else 0.0
             warn = self.check_value(base, test)
@@ -93,7 +93,7 @@ class AutotestTask(Task):
         return rows
 
     def clean_sql(self, sql):
-        sql = unicode(sql)
+        sql = sql
         return sql.replace('%', '%%').replace("\u2028", '').replace("\u2029", '')
 
     def back_sql(self, sql):
